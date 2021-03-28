@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Recipe.Web.Api", "Recipe.Web.Api\Recipe.Web.Api.csproj", "{72F392D1-7D61-4F98-A93C-4481B7DBDCE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{72F392D1-7D61-4F98-A93C-4481B7DBDCE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72F392D1-7D61-4F98-A93C-4481B7DBDCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72F392D1-7D61-4F98-A93C-4481B7DBDCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72F392D1-7D61-4F98-A93C-4481B7DBDCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC11C4E7-1F9A-4F90-85B8-C1FCEE5ABAA2}
+	EndGlobalSection
+EndGlobal
