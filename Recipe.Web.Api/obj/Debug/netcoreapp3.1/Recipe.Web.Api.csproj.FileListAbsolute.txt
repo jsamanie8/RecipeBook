@@ -18,3 +18,4 @@ C:\Projects\RecipeBook\RecipeBook\Recipe.App\Recipe.Web.Api\obj\Debug\netcoreapp
 C:\Projects\RecipeBook\RecipeBook\Recipe.App\Recipe.Web.Api\obj\Debug\netcoreapp3.1\Recipe.Web.Api.dll
 C:\Projects\RecipeBook\RecipeBook\Recipe.App\Recipe.Web.Api\obj\Debug\netcoreapp3.1\Recipe.Web.Api.pdb
 C:\Projects\RecipeBook\RecipeBook\Recipe.App\Recipe.Web.Api\obj\Debug\netcoreapp3.1\Recipe.Web.Api.genruntimeconfig.cache
+C:\Projects\RecipeBook\RecipeBook\Recipe.App\Recipe.Web.Api\bin\Debug\netcoreapp3.1\web.config
