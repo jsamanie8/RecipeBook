@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,5 +12,7 @@ namespace Recipe.Web.Api.Controllers
     [ApiController]
     public class OwnerApiController : ControllerBase
     {
+        //[HttpGet, AllowAnonymous]
+        //public ActionResult<Owner>
     }
 }
