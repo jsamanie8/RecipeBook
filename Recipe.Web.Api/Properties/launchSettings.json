@@ -29,7 +29,7 @@
     "Debug": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/test",
+      "launchUrl": "http://localhost:5000/api/owners",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
