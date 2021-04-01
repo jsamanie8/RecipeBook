@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Recipe.Models\Recipe.Models.csproj" />
+    <ProjectReference Include="..\Recipe.Services\Recipe.Services.csproj" />
   </ItemGroup>
 
 
