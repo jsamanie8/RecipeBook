@@ -1,10 +1,11 @@
 ﻿using Recipe.Models.Domain;
+using Recipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 
 namespace Recipe.Services
 {
-    public class OwnerService
+    public class OwnerService : IOwnerService
     {
         public Owner Get()
         {

@@ -1,5 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Recipe.Services;
+using Recipe.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,9 @@ namespace Recipe.Web.Api.StartUpConfig
 
             services.AddSingleton<IConfiguration>(config);
             string connectionString = config.GetConnectionString("Default");
+
+
+            services.AddSingleton<IOwnerService, OwnerService>();
         }
     }
 }
