@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Recipe.Services;
-using Recipe.Services.Interfaces;
+using Recipe.Services_V2.Interfaces;
+using Recipe.Services_V2.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
