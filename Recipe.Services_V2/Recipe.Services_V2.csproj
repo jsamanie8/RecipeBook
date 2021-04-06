@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Recipe.Models_V2\Recipe.Models_V2.csproj" />
-    <ProjectReference Include="..\Recipe.Services_V2\Recipe.Services_V2.csproj" />
   </ItemGroup>
-
 
 </Project>
