@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Recipe.Data.Interfaces;
+using Recipe.Data.Providers;
 
 namespace Recipe.Web.Api.StartUpConfig
 {
@@ -23,6 +25,10 @@ namespace Recipe.Web.Api.StartUpConfig
 
 
             services.AddSingleton<IOwnerService, OwnerService>();
+            services.AddSingleton<IDataProvider, SqlDataProvider>(delegate (IServiceProvider provider)
+            {
+                return new SqlDataProvider(connectionString);
+            });
         }
     }
 }
