@@ -27,11 +27,12 @@ namespace Recipe.Web.Api.Controllers
             _service = service;
             //Work on getting connection string from Startup/Dependency Injection...
             //Check if the connection string shows up here.
-            _connection = config.GetConnectionString("Default");
+            //_connection = config.GetConnectionString("Default");
         }
         [HttpGet, AllowAnonymous]
         public ActionResult<Owner> Get()
         {
+            _service.Get();
             //return 
             return Created201();
         }
