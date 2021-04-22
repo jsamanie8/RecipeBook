@@ -7,6 +7,6 @@ namespace Recipe.Services_V2.Interfaces
 {
     public interface IOwnerService
     {
-        Owner Get();
+        List<Owner> Get();
     }
 }

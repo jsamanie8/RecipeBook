@@ -17,8 +17,15 @@ namespace Recipe.Data.Providers
             this.connString = connectionString;
         }
 
-        public void Get(string storedProc)
+        public void Get(string storedProc, Action<IDataReader, short> map)
         {
+            if (map == null)
+            {
+                throw new NullReferenceException("Provide ObjectMapper");
+            }
+
+            short result = 0;
+
             using (SqlConnection connection = new SqlConnection(connString))
             {
                 var command = new SqlCommand(storedProc, connection);
@@ -30,6 +37,10 @@ namespace Recipe.Data.Providers
                     while (reader.Read())
                     {
                         Console.WriteLine($"\t{reader[0]}\t{reader[1]}\t{reader[2]}");
+                        if (map != null)
+                        {
+                            map(reader, result);
+                        }
                     }
                     reader.Close();
                 }
@@ -37,7 +48,7 @@ namespace Recipe.Data.Providers
                 {
                     Console.WriteLine(ex.Message);
                 }
-                Console.ReadLine();
+                //Console.ReadLine();
             }
         }
     }

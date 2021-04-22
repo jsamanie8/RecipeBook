@@ -30,7 +30,7 @@ namespace Recipe.Web.Api.Controllers
             //_connection = config.GetConnectionString("Default");
         }
         [HttpGet, AllowAnonymous]
-        public ActionResult<Owner> Get()
+        public ActionResult<List<Owner>> Get()
         {
             _service.Get();
             //return 
