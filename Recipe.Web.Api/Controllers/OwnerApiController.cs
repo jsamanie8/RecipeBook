@@ -25,16 +25,23 @@ namespace Recipe.Web.Api.Controllers
         public OwnerApiController(IOwnerService service, ILogger<OwnerApiController> logger, IConfiguration config) : base (logger)
         {
             _service = service;
-            //Work on getting connection string from Startup/Dependency Injection...
-            //Check if the connection string shows up here.
-            //_connection = config.GetConnectionString("Default");
         }
         [HttpGet, AllowAnonymous]
         public ActionResult<List<Owner>> Get()
         {
-            _service.Get();
-            //return 
-            return Created201();
+            ActionResult result = null;
+
+            try
+            {
+                var ownersResult = _service.Get();
+                result = Ok(ownersResult);
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+            
+            return result;
         }
     }
 }
