@@ -39,6 +39,15 @@ namespace Recipe.Services_V2.Services
             return result;
         }
 
+        public int Add()
+        {
+            //Create an Add Owner Request Model.
+            //Pass in OwnerAddRequestModel and a userId to record in db. TODO
+            string procName = "[dbo].[Owner_Insert]";
+
+            return 0;
+        }
+
         private static Owner MapOwner(IDataReader reader)
         {
             var owner = new Owner();
