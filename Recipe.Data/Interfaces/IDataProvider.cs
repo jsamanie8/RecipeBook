@@ -8,5 +8,7 @@ namespace Recipe.Data.Interfaces
     public interface IDataProvider
     {
         void Get(string storedProc, Action<IDataReader, short> map);
+        //Add is a WIP. TODO
+        int Add(string storedProc);
     }
 }

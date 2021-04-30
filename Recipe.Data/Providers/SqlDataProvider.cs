@@ -51,5 +51,11 @@ namespace Recipe.Data.Providers
                 //Console.ReadLine();
             }
         }
+
+        public int Add(string storedProc)
+        {
+            //Work on adding a record. TODO
+            return 0;
+        }
     }
 }
