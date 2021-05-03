@@ -1,9 +1,11 @@
 ﻿using Recipe.Data.Interfaces;
 using Recipe.Models_V2.Domain;
+using Recipe.Models_V2.Requests.Owner;
 using Recipe.Services_V2.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace Recipe.Services_V2.Services
@@ -39,13 +41,27 @@ namespace Recipe.Services_V2.Services
             return result;
         }
 
-        public int Add()
+        public int Add(OwnerAddRequest model)
         {
-            //Create an Add Owner Request Model.
             //Pass in OwnerAddRequestModel and a userId to record in db. TODO
             string procName = "[dbo].[Owner_Insert]";
+            int id = 0;
 
-            return 0;
+            _data.Add(procName,
+                paramMapper: delegate (SqlParameterCollection col)
+                {
+                    AddParameters(model, col);
+                    var idOut = new SqlParameter("@Id", SqlDbType.Int);
+                    idOut.Direction = ParameterDirection.Output;
+                    col.Add(idOut);
+                },
+                returnParams: delegate (SqlParameterCollection returnColl)
+                {
+                    var oId = returnColl["@Id"].Value;
+                    Int32.TryParse(oId.ToString(), out id);
+                });
+
+            return id;
         }
 
         private static Owner MapOwner(IDataReader reader)
@@ -60,6 +76,14 @@ namespace Recipe.Services_V2.Services
             owner.Email = reader.GetString(index++);
 
             return owner;
+        }
+
+        private static void AddParameters(OwnerAddRequest model, SqlParameterCollection col)
+        {
+            col.AddWithValue("@FirstName", model.FirstName);
+            col.AddWithValue("@LastName", model.LastName);
+            col.AddWithValue("@Password", model.Password);
+            col.AddWithValue("@Email", model.Email);
         }
     }
 }

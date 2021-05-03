@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Recipe.Models_V2.Domain;
 using Recipe.Services_V2.Interfaces;
+using Recipe.Models_V2.Requests.Owner;
 
 namespace Recipe.Web.Api.Controllers
 {
@@ -41,6 +42,24 @@ namespace Recipe.Web.Api.Controllers
                 result = StatusCode(500, ex.ToString());
             }
             
+            return result;
+        }
+
+        [HttpPost]
+        public ActionResult Add(OwnerAddRequest model)
+        {
+            ActionResult result = null;
+            try
+            {
+                int id = _service.Add(model);
+                
+                result = Ok(id);
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+
             return result;
         }
     }
