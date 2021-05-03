@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 using System.Text;
 
 namespace Recipe.Data.Interfaces
@@ -9,6 +10,6 @@ namespace Recipe.Data.Interfaces
     {
         void Get(string storedProc, Action<IDataReader, short> map);
         //Add is a WIP. TODO
-        int Add(string storedProc);
+        int Add(string storedProc, Action<SqlParameterCollection> paramMapper, Action<SqlParameterCollection> returnParams = null);
     }
 }

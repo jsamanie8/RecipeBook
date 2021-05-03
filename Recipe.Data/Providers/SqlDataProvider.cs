@@ -17,6 +17,11 @@ namespace Recipe.Data.Providers
             this.connString = connectionString;
         }
 
+        private SqlConnection GetConnection()
+        {
+            return new SqlConnection(connString);
+        }
+
         public void Get(string storedProc, Action<IDataReader, short> map)
         {
             if (map == null)
@@ -24,9 +29,10 @@ namespace Recipe.Data.Providers
                 throw new NullReferenceException("Provide ObjectMapper");
             }
 
+            SqlConnection connection = null;
             short result = 0;
 
-            using (SqlConnection connection = new SqlConnection(connString))
+            using (connection = GetConnection())
             {
                 var command = new SqlCommand(storedProc, connection);
 
@@ -52,10 +58,72 @@ namespace Recipe.Data.Providers
             }
         }
 
-        public int Add(string storedProc)
+        public int Add(string storedProc, Action<SqlParameterCollection> paramMapper, Action<SqlParameterCollection> returnParams = null)
         {
-            //Work on adding a record. TODO
-            return 0;
+            SqlConnection connection = null;
+            SqlCommand command = null;
+            
+            try
+            {
+                using (connection = GetConnection())
+                {
+                    if (connection != null)
+                    {
+                        if (connection.State != ConnectionState.Open)
+                            connection.Open();
+
+                        command = GetCommand(connection, storedProc, paramMapper);
+                        if (command != null)
+                        {
+                            int returnVal = command.ExecuteNonQuery();
+
+                            if (connection.State != ConnectionState.Closed)
+                                connection.Close();
+
+                            if (returnParams != null)
+                                returnParams(command.Parameters);
+
+                            return returnVal;
+                        }
+
+                    }
+                }
+            }
+            finally
+            {
+                if (connection != null && connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
+
+            return -1;
+        }
+
+        private SqlCommand GetCommand(SqlConnection conn, string cmdText = null, Action<SqlParameterCollection> mapper = null)
+        {
+            SqlCommand command = null;
+
+            if (conn != null)
+            {
+                command = conn.CreateCommand();
+            }
+
+            if (command != null)
+            {
+                if (!String.IsNullOrEmpty(cmdText))
+                {
+                    command.CommandText = cmdText;
+                    command.CommandType = CommandType.StoredProcedure;
+                }
+
+                if (mapper != null)
+                {
+                    mapper(command.Parameters);
+                }
+            }
+
+            return command;
         }
     }
 }
