@@ -62,5 +62,23 @@ namespace Recipe.Web.Api.Controllers
 
             return result;
         }
+
+        [HttpPut]
+        public ActionResult Update(OwnerUpdateRequest model)
+        {
+            ActionResult result = null;
+
+            try
+            {
+                _service.Update(model);
+                result = Ok200();
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+
+            return result;
+        }
     }
 }

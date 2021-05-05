@@ -24,8 +24,6 @@ namespace Recipe.Services_V2.Services
             List<Owner> result = null;
             string procName = "[dbo].[Owner_SelectAll]";
             
-            
-
             _data.Get(procName, map: delegate (IDataReader reader, short set) 
             {
                 Owner owner = MapOwner(reader);
@@ -62,6 +60,18 @@ namespace Recipe.Services_V2.Services
                 });
 
             return id;
+        }
+
+        public void Update(OwnerUpdateRequest model)
+        {
+            string procName = "[dbo].[Owner_Update]";
+
+            _data.Update(procName,
+                paramMapper: delegate (SqlParameterCollection col)
+                {
+                    AddParameters(model, col);
+                    col.AddWithValue("@Id", model.Id);
+                });
         }
 
         private static Owner MapOwner(IDataReader reader)
