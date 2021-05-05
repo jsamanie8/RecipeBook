@@ -54,7 +54,6 @@ namespace Recipe.Data.Providers
                 {
                     Console.WriteLine(ex.Message);
                 }
-                //Console.ReadLine();
             }
         }
 
@@ -82,6 +81,45 @@ namespace Recipe.Data.Providers
 
                             if (returnParams != null)
                                 returnParams(command.Parameters);
+
+                            return returnVal;
+                        }
+
+                    }
+                }
+            }
+            finally
+            {
+                if (connection != null && connection.State != ConnectionState.Closed)
+                {
+                    connection.Close();
+                }
+            }
+
+            return -1;
+        }
+
+        public int Update(string storedProc, Action<SqlParameterCollection> paramMapper)
+        {
+            SqlConnection connection = null;
+            SqlCommand command = null;
+
+            try
+            {
+                using (connection = GetConnection())
+                {
+                    if (connection != null)
+                    {
+                        if (connection.State != ConnectionState.Open)
+                            connection.Open();
+
+                        command = GetCommand(connection, storedProc, paramMapper);
+                        if (command != null)
+                        {
+                            int returnVal = command.ExecuteNonQuery();
+
+                            if (connection.State != ConnectionState.Closed)
+                                connection.Close();
 
                             return returnVal;
                         }
