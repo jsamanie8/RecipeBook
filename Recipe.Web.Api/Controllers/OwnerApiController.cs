@@ -48,6 +48,7 @@ namespace Recipe.Web.Api.Controllers
         [HttpPost]
         public ActionResult Add(OwnerAddRequest model)
         {
+            //TODO: Hash the password. Return the Id created.
             ActionResult result = null;
             try
             {
