@@ -53,8 +53,9 @@ namespace Recipe.Web.Api.Controllers
             try
             {
                 int id = _service.Add(model);
-                
-                result = Ok(id);
+
+                //result = Ok(id);
+                result = Created201(id);
             }
             catch (Exception ex)
             {
