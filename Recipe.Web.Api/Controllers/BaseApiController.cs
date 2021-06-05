@@ -24,11 +24,11 @@ namespace Recipe.Web.Api.Controllers
             return base.Ok("Success!");
         }
 
-        protected CreatedResult Created201()
+        protected CreatedResult Created201(int id)
         {
             string url = Request.Path;
 
-            return base.Created(url, "Item was created!");
+            return base.Created(url, id);
         }
 
         protected NotFoundObjectResult NotFound404()
