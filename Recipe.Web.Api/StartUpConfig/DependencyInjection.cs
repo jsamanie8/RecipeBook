@@ -25,6 +25,7 @@ namespace Recipe.Web.Api.StartUpConfig
 
 
             services.AddSingleton<IOwnerService, OwnerService>();
+            services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IDataProvider, SqlDataProvider>(delegate (IServiceProvider provider)
             {
                 return new SqlDataProvider(connectionString);
