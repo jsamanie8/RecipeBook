@@ -22,13 +22,11 @@ namespace Recipe.Web.Api.Controllers
     public class OwnerApiController : BaseApiController
     {
         private IOwnerService _service = null;
-        private Salt salt = null;
         private readonly string _connection;
 
         public OwnerApiController(IOwnerService service, ILogger<OwnerApiController> logger, IConfiguration config) : base (logger)
         {
             _service = service;
-            salt = new Salt();
         }
         [HttpGet, AllowAnonymous]
         public ActionResult<List<Owner>> Get()
@@ -51,12 +49,9 @@ namespace Recipe.Web.Api.Controllers
         [HttpPost]
         public ActionResult Add(OwnerAddRequest model)
         {
-            //TODO: Hash the password.
             ActionResult result = null;
             try
             {
-                string hashedPassword = salt.SaltPassword(model.Password);
-                model.Password = hashedPassword;
                 int id = _service.Add(model);
 
                 result = Created201(id);

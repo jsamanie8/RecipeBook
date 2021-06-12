@@ -1,4 +1,5 @@
 ﻿using Recipe.Data.Interfaces;
+using Recipe.Helpers.Security;
 using Recipe.Models_V2.Domain;
 using Recipe.Models_V2.Requests.Owner;
 using Recipe.Services_V2.Interfaces;
@@ -13,10 +14,12 @@ namespace Recipe.Services_V2.Services
     public class OwnerService : IOwnerService
     {
         private IDataProvider _data = null;
+        private Salt _salt = null;
 
         public OwnerService(IDataProvider data)
         {
             _data = data;
+            _salt = new Salt();
         }
 
         public List<Owner> Get()
@@ -44,6 +47,8 @@ namespace Recipe.Services_V2.Services
             //Pass in OwnerAddRequestModel and a userId to record in db. TODO
             string procName = "[dbo].[Owner_Insert]";
             int id = 0;
+            string hashedPwd = _salt.SaltPassword(model.Password);
+            model.Password = hashedPwd;
 
             _data.Add(procName,
                 paramMapper: delegate (SqlParameterCollection col)
