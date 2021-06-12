@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Recipe.Data\Recipe.Data.csproj" />
+    <ProjectReference Include="..\Recipe.Helpers\Recipe.Helpers.csproj" />
     <ProjectReference Include="..\Recipe.Models_V2\Recipe.Models_V2.csproj" />
   </ItemGroup>
 

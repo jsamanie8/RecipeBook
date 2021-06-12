@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Recipe.Helpers.Security;
 using Recipe.Models_V2.Domain;
+using Recipe.Models_V2.Requests.User;
 using Recipe.Services_V2.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -18,13 +19,11 @@ namespace Recipe.Web.Api.Controllers
     public class UserApiController : BaseApiController
     {
         private IUserService _service = null;
-        private Salt salt = null;
         private readonly string _connection;
 
         public UserApiController(IUserService service, ILogger<UserApiController> logger, IConfiguration config) : base (logger)
         {
             _service = service;
-            salt = new Salt();
         }
 
         [HttpGet, AllowAnonymous]
@@ -36,6 +35,24 @@ namespace Recipe.Web.Api.Controllers
             {
                 var userResult = _service.Get();
                 result = Ok(userResult);
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+
+            return result;
+        }
+
+        [HttpPost]
+        public ActionResult Add(UserAddRequest model)
+        {
+            ActionResult result = null;
+
+            try
+            {
+                int id = _service.Add(model);
+                result = Created201(id);
             }
             catch (Exception ex)
             {
