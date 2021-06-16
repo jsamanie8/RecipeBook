@@ -14,12 +14,10 @@ namespace Recipe.Services_V2.Services
     public class OwnerService : IOwnerService
     {
         private IDataProvider _data = null;
-        private Salt _salt = null;
 
         public OwnerService(IDataProvider data)
         {
             _data = data;
-            _salt = new Salt();
         }
 
         public List<Owner> Get()
@@ -47,7 +45,8 @@ namespace Recipe.Services_V2.Services
             //Pass in OwnerAddRequestModel and a userId to record in db. TODO
             string procName = "[dbo].[Owner_Insert]";
             int id = 0;
-            string hashedPwd = _salt.SaltPassword(model.Password);
+            //string hashedPwd = _salt.SaltPassword(model.Password);
+            var hashedPwd = BCrypt.Net.BCrypt.HashPassword(model.Password);
             model.Password = hashedPwd;
 
             _data.Add(procName,

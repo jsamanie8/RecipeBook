@@ -9,6 +9,12 @@ namespace Recipe.Data.Interfaces
     public interface IDataProvider
     {
         void Get(string storedProc, Action<IDataReader, short> map);
+        void ExecuteProc(
+            string storedProc,
+            Action<SqlParameterCollection> paramMapper,
+            Action<IDataReader, short> map,
+            Action<SqlParameterCollection> returnParams = null,
+            Action<SqlCommand> cmdModifier = null);
         int Add(string storedProc, Action<SqlParameterCollection> paramMapper, Action<SqlParameterCollection> returnParams = null);
         int Update(string storedProc, Action<SqlParameterCollection> paramMapper);
     }

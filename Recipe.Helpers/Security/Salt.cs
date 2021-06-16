@@ -30,5 +30,10 @@ namespace Recipe.Helpers.Security
 
             return hashed;
         }
+
+        public bool VerifyPassword(string hash)
+        {
+            return true;
+        }
     }
 }
