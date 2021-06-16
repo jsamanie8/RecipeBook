@@ -14,12 +14,10 @@ namespace Recipe.Services_V2.Services
     public class UserService : IUserService
     {
         private IDataProvider _data = null;
-        private Salt _salt = null;
 
         public UserService(IDataProvider data)
         {
             _data = data;
-            _salt = new Salt();
         }
 
         public List<User> Get()
@@ -46,7 +44,8 @@ namespace Recipe.Services_V2.Services
         {
             string procName = "[dbo].[User_Insert]";
             int id = 0;
-            string hashedPwd = _salt.SaltPassword(model.Password);
+            //string hashedPwd = _salt.SaltPassword(model.Password);
+            var hashedPwd = BCrypt.Net.BCrypt.HashPassword(model.Password);
             model.Password = hashedPwd;
 
             _data.Add(procName,

@@ -61,5 +61,20 @@ namespace Recipe.Web.Api.Controllers
 
             return result;
         }
+
+        [HttpPost("{login}"), AllowAnonymous]
+        public async Task<ActionResult> Login(Login loginModel)
+        {
+            int statusCode = 500;
+
+            try
+            {
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
