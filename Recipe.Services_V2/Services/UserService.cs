@@ -65,6 +65,43 @@ namespace Recipe.Services_V2.Services
             return id;
         }
 
+        public List<User> VerifyUser(Login model)
+        {
+            List<User> userLoggedIn = null;
+            User user = new User();
+            string procName = "[dbo].[User_SelectByEmail]";
+            string hashedPassword = "";
+
+            _data.ExecuteProc(procName, paramMapper: delegate (SqlParameterCollection paramCollection)
+            {
+                paramCollection.AddWithValue("@Email", model.Email);
+            },
+                map: delegate (IDataReader reader, short set)
+                {
+                    int index = 0;
+                    hashedPassword = reader.GetString(3);
+                    bool isValidPassword = BCrypt.Net.BCrypt.Verify(model.Password, hashedPassword);
+
+                    if (isValidPassword)
+                    {
+                        user.Id = reader.GetInt32(index++);
+                        user.FirstName = reader.GetString(index++);
+                        user.LastName = reader.GetString(index++);
+                        user.Password = reader.GetString(index++);
+                        user.Email = reader.GetString(index++);
+                        user.Admin = reader.GetBoolean(index++);
+                    }
+                    else
+                    {
+                        throw new Exception("Password is not valid!");
+                    }
+
+                    userLoggedIn.Add(user);
+                });
+
+            return userLoggedIn;
+        }
+
         private static User MapUser(IDataReader reader)
         {
             var user = new User();
