@@ -10,5 +10,7 @@ namespace Recipe.Services_V2.Interfaces
     {
         List<User> Get();
         int Add(UserAddRequest model);
+
+        List<User> VerifyUser(Login model);
     }
 }
