@@ -84,6 +84,7 @@ namespace Recipe.Services_V2.Services
 
                     if (isValidPassword)
                     {
+                        userLoggedIn = new List<User>();
                         user.Id = reader.GetInt32(index++);
                         user.FirstName = reader.GetString(index++);
                         user.LastName = reader.GetString(index++);
