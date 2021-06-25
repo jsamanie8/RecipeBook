@@ -103,9 +103,9 @@ namespace Recipe.Data.Providers
                                     {
                                         map(reader, result);
                                     }
-                                }
 
-                                result += 1;
+                                    result += 1;
+                                }
 
                                 if (reader.IsClosed || !reader.NextResult())
                                     break;
