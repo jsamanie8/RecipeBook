@@ -44,7 +44,6 @@ namespace Recipe.Services_V2.Services
         {
             string procName = "[dbo].[User_Insert]";
             int id = 0;
-            //string hashedPwd = _salt.SaltPassword(model.Password);
             var hashedPwd = BCrypt.Net.BCrypt.HashPassword(model.Password);
             model.Password = hashedPwd;
 
@@ -69,7 +68,16 @@ namespace Recipe.Services_V2.Services
         {
             List<User> userLoggedIn = null;
             User user = new User();
-            string procName = "[dbo].[User_SelectByEmail]";
+            string procName = "";
+            if (model.IsOwner)
+            {
+                //TODO: Select By Owner.
+                //procName = "";
+            }
+            else
+            {
+                procName = "[dbo].[User_SelectByEmail]";
+            }
             string hashedPassword = "";
 
             _data.ExecuteProc(procName, paramMapper: delegate (SqlParameterCollection paramCollection)
