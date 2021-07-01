@@ -72,6 +72,7 @@ namespace Recipe.Services_V2.Services
             if (model.IsOwner)
             {
                 //TODO: Select By Owner.
+                //NO LONGER NEED IsOwner property. Will hit owner api login from client side.
                 //procName = "";
             }
             else

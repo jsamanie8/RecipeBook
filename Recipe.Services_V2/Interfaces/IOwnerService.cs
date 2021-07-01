@@ -11,5 +11,6 @@ namespace Recipe.Services_V2.Interfaces
         List<Owner> Get();
         int Add(OwnerAddRequest model);
         void Update(OwnerUpdateRequest model);
+        List<Owner> VerifyOwner(Login model);
     }
 }

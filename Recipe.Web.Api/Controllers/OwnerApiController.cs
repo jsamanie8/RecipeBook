@@ -81,5 +81,23 @@ namespace Recipe.Web.Api.Controllers
 
             return result;
         }
+
+        [HttpPost("{login}"), AllowAnonymous]
+        public ActionResult<List<Owner>> Login(Login loginModel)
+        {
+            ActionResult<List<Owner>> result = null;
+
+            try
+            {
+                var loginResult = _service.VerifyOwner(loginModel);
+                result = Ok(loginResult);
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+
+            return result;
+        }
     }
 }

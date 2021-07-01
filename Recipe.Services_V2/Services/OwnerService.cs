@@ -45,7 +45,6 @@ namespace Recipe.Services_V2.Services
             //Pass in OwnerAddRequestModel and a userId to record in db. TODO
             string procName = "[dbo].[Owner_Insert]";
             int id = 0;
-            //string hashedPwd = _salt.SaltPassword(model.Password);
             var hashedPwd = BCrypt.Net.BCrypt.HashPassword(model.Password);
             model.Password = hashedPwd;
 
@@ -76,6 +75,42 @@ namespace Recipe.Services_V2.Services
                     AddParameters(model, col);
                     col.AddWithValue("@Id", model.Id);
                 });
+        }
+
+        public List<Owner> VerifyOwner(Login model)
+        {
+            List<Owner> ownerLoggedIn = null;
+            Owner owner = new Owner();
+            string procName = "[dbo].[Owner_SelectByEmail]";
+            string hashedPassword = "";
+
+            _data.ExecuteProc(procName, paramMapper: delegate (SqlParameterCollection paramCollection)
+            {
+                paramCollection.AddWithValue("@Email", model.Email);
+            }, map: delegate (IDataReader reader, short set)
+            {
+                int index = 0;
+                hashedPassword = reader.GetString(3);
+                bool isValidPassword = BCrypt.Net.BCrypt.Verify(model.Password, hashedPassword);
+
+                if (isValidPassword)
+                {
+                    ownerLoggedIn = new List<Owner>();
+                    owner.Id = reader.GetInt32(index++);
+                    owner.FirstName = reader.GetString(index++);
+                    owner.LastName = reader.GetString(index++);
+                    owner.Password = reader.GetString(index++);
+                    owner.Email = reader.GetString(index++);
+                }
+                else
+                {
+                    throw new Exception("Password is not valid!");
+                }
+
+                ownerLoggedIn.Add(owner);
+            });
+
+            return ownerLoggedIn;
         }
 
         private static Owner MapOwner(IDataReader reader)
