@@ -68,17 +68,7 @@ namespace Recipe.Services_V2.Services
         {
             List<User> userLoggedIn = null;
             User user = new User();
-            string procName = "";
-            if (model.IsOwner)
-            {
-                //TODO: Select By Owner.
-                //NO LONGER NEED IsOwner property. Will hit owner api login from client side.
-                //procName = "";
-            }
-            else
-            {
-                procName = "[dbo].[User_SelectByEmail]";
-            }
+            string procName = "[dbo].[User_SelectByEmail]";
             string hashedPassword = "";
 
             _data.ExecuteProc(procName, paramMapper: delegate (SqlParameterCollection paramCollection)
