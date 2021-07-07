@@ -80,6 +80,22 @@ namespace Recipe.Web.Api.Controllers
             return result;
         }
 
-        //TODO GET USER BY ID
+        [HttpGet("{id}"), AllowAnonymous]
+        public ActionResult<User> GetById(int id)
+        {
+            ActionResult result = null;
+
+            try
+            {
+                var userResult = _service.GetById(id);
+                result = Ok(userResult);
+            }
+            catch (Exception ex)
+            {
+                result = StatusCode(500, ex.ToString());
+            }
+
+            return result;
+        }
     }
 }

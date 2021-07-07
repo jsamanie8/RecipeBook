@@ -39,6 +39,22 @@ namespace Recipe.Services_V2.Services
 
             return result;
         }
+
+        public User GetById(int id)
+        {
+            User result = null;
+            string procName = "[dbo].[User_SelectById]";
+
+            _data.ExecuteProc(procName, paramMapper: delegate (SqlParameterCollection paramCollection)
+            {
+                paramCollection.AddWithValue("@Id", id);
+            }, map: delegate (IDataReader reader, short set)
+            {
+                result = MapUser(reader);
+            });
+
+            return result;
+        }
         
         public int Add(UserAddRequest model)
         {
